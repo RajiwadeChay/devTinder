@@ -4,17 +4,12 @@ const User = require("./models/user");
 
 const app = express();
 
+app.use(express.json()); // Using express.json moddleware to convert JSON => JS Obj
+
 // POST /signup API
 app.post("/signup", async (req, res) => {
   // Creating a new instance of the User model
-  const user = new User({
-    firstName: "Rohit",
-    lastName: "Sharma",
-    emailId: "rohit@gmail.com",
-    password: "rohit@123",
-    age: 35,
-    gender: "male",
-  });
+  const user = new User(req.body); // Getting dynamic data from API call
 
   try {
     await user.save(); // Saving user obj/document in DB
