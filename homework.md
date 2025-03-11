@@ -56,3 +56,6 @@
 - Difference between JS Object & JSON
 - Add the express.json middleware to your app
 - Make your signup API dynamic to recive data from the end user
+- User.findOne() with duplicate email ids, which one it eill return
+- API => Get user by email
+- API => Get all users
