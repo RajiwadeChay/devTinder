@@ -19,7 +19,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-// GET /user => Get user  by email
+// GET /user => Get user by email
 app.get("/user", async (req, res) => {
   const userEmail = req.body.emailId;
   try {
@@ -43,6 +43,23 @@ app.get("/user", async (req, res) => {
   }
 });
 
+// GET /userById => Get user by id
+app.get("/userById", async (req, res) => {
+  const userId = req.body._id;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.send(user);
+    }
+  } catch (err) {
+    res.status(400).send("Something went wrong");
+  }
+});
+
 // GET /feed => Get all users
 app.get("/feed", async (req, res) => {
   try {
@@ -52,6 +69,61 @@ app.get("/feed", async (req, res) => {
       res.status(404).send("Users not found");
     } else {
       res.send(users);
+    }
+  } catch (err) {
+    res.status(400).send("Something went wrong");
+  }
+});
+
+// DELETE /user => Delete user by id
+app.delete("/user", async (req, res) => {
+  const userId = req.body.userId;
+
+  try {
+    const user = await User.findByIdAndDelete(userId);
+
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.send("Deleted user successfully");
+    }
+  } catch (err) {
+    res.status(400).send("Something went wrong");
+  }
+});
+
+// UPDATE /user => Update a user by id
+app.patch("/user", async (req, res) => {
+  const userId = req.body.userId;
+  const data = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(userId, data, {
+      returnDocument: "after",
+    });
+
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.send("User updated successfully");
+    }
+  } catch (err) {
+    res.status(400).send("Something went wrong");
+  }
+});
+
+// UPDATE /userByEmail => Update a user by email
+app.patch("/userByEmail", async (req, res) => {
+  const userEmail = req.body.emailId;
+  const data = req.body;
+  try {
+    const user = await User.findOneAndUpdate({ emailId: userEmail }, data, {
+      returnDocument: "after",
+    });
+
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.send("User updated successfully by email");
     }
   } catch (err) {
     res.status(400).send("Something went wrong");
