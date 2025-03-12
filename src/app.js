@@ -8,8 +8,15 @@ app.use(express.json()); // Using express.json moddleware to convert JSON => JS 
 
 // POST /signup API
 app.post("/signup", async (req, res) => {
+  const data = req.body;
+
+  // Skills field validation
+  if (data?.skills?.length > 10) {
+    throw new Error("Skills cannot be more than 10");
+  }
+
   // Creating a new instance of the User model
-  const user = new User(req.body); // Getting dynamic data from API call
+  const user = new User(data); // Getting dynamic data from API call
 
   try {
     await user.save(); // Saving user obj/document in DB

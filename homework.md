@@ -77,3 +77,6 @@
 - Add timestamps to the user schema
 - Add API level validation on Updat Patch and Signup POST request
 - DATA SANITIZING => Add API validation for each field
+- Intall validator
+- Explore validator library function and Use validator funcs for password, email, photoUrl
+- NEVER TRUST req.body (Always use validations on your end)
