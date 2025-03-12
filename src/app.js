@@ -99,6 +99,7 @@ app.patch("/user", async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(userId, data, {
       returnDocument: "after",
+      runValidators: true, // Enabling custome validator function
     });
 
     if (!user) {
