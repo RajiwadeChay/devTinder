@@ -3,6 +3,7 @@ const connectDB = require("./config/databse");
 const User = require("./models/user");
 const { validateSignUpData } = require("./utils/validation");
 const bcrypt = require("bcrypt");
+const validator = require("validator");
 
 const app = express();
 
@@ -29,6 +30,31 @@ app.post("/signup", async (req, res) => {
 
     await user.save(); // Saving user obj/document in DB
     res.send("User added successfully!");
+  } catch (err) {
+    res.status(400).send("ERROR : " + err.message);
+  }
+});
+
+// POST /signin API
+app.post("/signin", async (req, res) => {
+  try {
+    const { emailId, password } = req.body;
+
+    if (!validator.isEmail(emailId)) {
+      throw new Error("Invalid credentials!");
+    }
+
+    const user = await User.findOne({ emailId: emailId });
+    if (!user) {
+      throw new Error("Invalid credentials!");
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (isPasswordValid) {
+      res.send("Sign In Successful!");
+    } else {
+      throw new Error("Invalid credentials!");
+    }
   } catch (err) {
     res.status(400).send("ERROR : " + err.message);
   }
