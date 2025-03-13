@@ -80,3 +80,9 @@
 - Intall validator
 - Explore validator library function and Use validator funcs for password, email, photoUrl
 - NEVER TRUST req.body (Always use validations on your end)
+
+# EPISODE 09
+
+- Validate data in /signup API
+- Install bcrypt package
+- Create PasswordHash using bcrypt.hash & save the user is encrypted password
