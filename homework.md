@@ -97,3 +97,8 @@
 - Install jsonwebtoken
 - In signin API, after email and password validation, create a JWT token and send it to user in cookie
 - Read the cookies inside your profile API and find the looged in user
+- userAuth Middleware
+- Add the userAuth middleware in profile API and a new sendConnectionRequest API
+- Set the expiray of JWT token and cookies to 7 days
+- Create userSchema method to getJWT()
+- Create userSchema method to validatePassword(passwordInputByUser)
