@@ -108,3 +108,7 @@
 - Explore tinder APIs
 - Create a list all API you can think of in DevTinder
 - Group multiple routes under respective routers
+- Read documentation for express.Router
+- Craete routes folder for managing auth, profile, request routers
+- Craete authRouter, profileRouter, requestRouter
+- Import these routers in app.js
