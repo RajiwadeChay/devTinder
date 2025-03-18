@@ -9,7 +9,16 @@ const validator = require("validator");
 // POST /signup API
 authRouter.post("/signup", async (req, res) => {
   try {
-    const { firstName, lastName, emailId, password } = req.body;
+    const {
+      firstName,
+      lastName,
+      emailId,
+      password,
+      gender,
+      photoUrl,
+      about,
+      skills,
+    } = req.body;
 
     // Validation of data
     validateSignUpData(req);
@@ -23,6 +32,10 @@ authRouter.post("/signup", async (req, res) => {
       lastName,
       emailId,
       password: passwordHash,
+      gender,
+      photoUrl,
+      about,
+      skills,
     }); // Getting dynamic data from API call
 
     await user.save(); // Saving user obj/document in DB
@@ -56,13 +69,22 @@ authRouter.post("/signin", async (req, res) => {
         expires: new Date(Date.now() + 8 * 3600000), // 8 days
       }); // res.cookie(tokenName, token, expiryDate)
 
-      res.send("Sign In Successfull!");
+      res.send("Sign In Successful!");
     } else {
       throw new Error("Invalid credentials!");
     }
   } catch (err) {
     res.status(400).send("ERROR : " + err.message);
   }
+});
+
+// POST /signout API
+authRouter.post("/signout", async (req, res) => {
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+  }); // setting token as null, expriring token now
+
+  res.send("Sign Out Successful!");
 });
 
 module.exports = authRouter;

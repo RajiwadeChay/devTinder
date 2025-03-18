@@ -112,3 +112,7 @@
 - Craete routes folder for managing auth, profile, request routers
 - Craete authRouter, profileRouter, requestRouter
 - Import these routers in app.js
+- API => POST /signout
+- API => PATCH /profile/edit
+- API => PATCH /profile/password (Forget password API)
+- Make sure to validate all data in every POST, PATCH APIs
