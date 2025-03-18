@@ -102,3 +102,9 @@
 - Set the expiray of JWT token and cookies to 7 days
 - Create userSchema method to getJWT()
 - Create userSchema method to validatePassword(passwordInputByUser)
+
+# EPISODE 11
+
+- Explore tinder APIs
+- Create a list all API you can think of in DevTinder
+- Group multiple routes under respective routers
