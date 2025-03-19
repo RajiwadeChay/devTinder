@@ -9,7 +9,7 @@ requestRouter.post("/sendConnectionRequest", userAuth, async (req, res) => {
     const user = req.user;
     res.send(user.firstName + " sent this connection request!");
   } catch (err) {
-    res.status(400).send("ERROR : " + err.message);
+    res.status(400).send("ERROR  : " + err.message);
   }
 });
 
