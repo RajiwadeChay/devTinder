@@ -134,3 +134,6 @@
 # EPISODE 13
 
 - API => POST review connection request with all validation
+- Thought process - POST vs GET
+- Read about ref and populate from Official MongoDB Docs
+- API => GET received user requests with all the checks

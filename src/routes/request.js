@@ -51,7 +51,7 @@ requestRouter.post(
       const data = await connectionRequest.save();
 
       res.json({
-        message: `${req.user.firstName}'s connection request status is ${status} by ${toUser.firstName}`,
+        message: `${req.user.firstName} is ${status} in ${toUser.firstName}`,
         data,
       });
     } catch (err) {
