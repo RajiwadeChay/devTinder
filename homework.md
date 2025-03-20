@@ -132,3 +132,5 @@
 - ALWAYS THINK ABOUT CORNER CASES
 
 # EPISODE 13
+
+- API => POST review connection request with all validation
