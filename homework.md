@@ -130,3 +130,5 @@
 - What is the advantages and disadvantages of creating index?
 - Read compound index artical from MongoDB Official Docs
 - ALWAYS THINK ABOUT CORNER CASES
+
+# EPISODE 13
