@@ -137,3 +137,4 @@
 - Thought process - POST vs GET
 - Read about ref and populate from Official MongoDB Docs
 - API => GET received user requests with all the checks
+- API => GET connections with all the checks
