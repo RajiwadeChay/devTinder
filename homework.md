@@ -138,3 +138,17 @@
 - Read about ref and populate from Official MongoDB Docs
 - API => GET received user requests with all the checks
 - API => GET connections with all the checks.
+
+# EPISODE 14
+
+- API => GET feed API
+- Explore the $nin, $eq, $and read other query operators
+- Pagination
+
+# NOTES :
+
+- MongoDB uses .skip() & .limit() for pagination
+- FORMULA : (skip - 1) \* limit
+- /user/feed?page=1&limit=10 => 1 - 10 => .skip(0) & .limit(10)
+- /user/feed?page=2&limit=10 => 11 - 20 => .skip(10) & .limit(10)
+- /user/feed?page=3&limit=10 => 21 - 30 => .skip(20) & .limit(10)
