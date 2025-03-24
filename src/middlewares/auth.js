@@ -8,7 +8,7 @@ const userAuth = async (req, res, next) => {
       // throw new Error("Invalid Token!!");
       return res
         .status(401)
-        .json({ message: null, error: "Please Sign In!", data: null });
+        .json({ message: null, data: null, error: "Please Sign In!" });
     }
 
     // Verifying token
@@ -24,7 +24,7 @@ const userAuth = async (req, res, next) => {
     req.user = user; // Attaching user to req
     next();
   } catch (err) {
-    res.status(400).send("ERROR : " + err.message);
+    res.status(400).json({ message: null, data: null, error: err.message });
   }
 };
 

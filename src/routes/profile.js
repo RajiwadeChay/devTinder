@@ -18,7 +18,7 @@ profileRouter.get("/profile/view", userAuth, async (req, res) => {
       error: null,
     });
   } catch (err) {
-    res.status(400).send("ERROR : " + err.message);
+    res.status(400).json({ message: null, data: null, error: err.message });
   }
 });
 
@@ -38,9 +38,10 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
     res.json({
       message: `${signedInUser.firstName}, your profile updated successfully!`,
       data: signedInUser,
+      error: null,
     }); // Best Practice
   } catch (err) {
-    res.status(400).send("ERROR : " + err.message);
+    res.status(400).json({ message: null, data: null, error: err.message });
   }
 });
 
@@ -60,9 +61,11 @@ profileRouter.patch("/profile/password", userAuth, async (req, res) => {
 
     res.json({
       message: `${signedInUser.firstName}, your password updated successfully!`,
+      data: null,
+      error: null,
     });
   } catch (err) {
-    res.status(400).send("ERROR : " + err.message);
+    res.status(400).json({ message: null, data: null, error: err.message });
   }
 });
 

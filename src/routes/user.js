@@ -20,9 +20,10 @@ userRouter.get("/user/requests/received", userAuth, async (req, res) => {
     res.json({
       message: "Data Fetched Successfully!",
       data: connectionRequests,
+      error: null,
     });
   } catch (err) {
-    res.status(400).send("ERROR : " + err.message);
+    res.status(400).json({ message: null, data: null, error: err.message });
   }
 });
 
@@ -50,9 +51,9 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
       return row.fromUserId;
     });
 
-    res.json({ data });
+    res.json({ message: null, data, error: null });
   } catch (err) {
-    res.status(400).send("ERROR : " + err.messgae);
+    res.status(400).json({ message: null, data: null, error: err.message });
   }
 });
 
@@ -93,9 +94,9 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
       .skip(skip)
       .limit(limit); // With pagination
 
-    res.json({ data: users });
+    res.json({ message: null, data: users, error: null });
   } catch (err) {
-    res.status(400).send("ERROR : " + err.message);
+    res.status(400).json({ message: null, data: null, error: err.message });
   }
 });
 

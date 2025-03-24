@@ -19,14 +19,18 @@ requestRouter.post(
       const allowedStatus = ["ignored", "interested"];
       if (!allowedStatus.includes(status)) {
         return res.status(400).json({
-          message: "Invalid status type : " + status,
+          message: null,
+          data: null,
+          error: "Invalid status type : " + status,
         });
       }
 
       // Validating toUser exists
       const toUser = await User.findById(toUserId);
       if (!toUser) {
-        return res.status(404).json({ message: "User Not Found!" });
+        return res
+          .status(404)
+          .json({ message: null, data: null, error: "User Not Found!" });
       }
 
       // Validating connection request already exists or not
@@ -37,9 +41,11 @@ requestRouter.post(
         ],
       });
       if (existingConnectionRequest) {
-        return res
-          .status(400)
-          .json({ message: "Connection Request Already Exists!" });
+        return res.status(400).json({
+          message: null,
+          data: null,
+          error: "Connection Request Already Exists!",
+        });
       }
 
       const connectionRequest = new ConnectionRequest({
@@ -53,9 +59,10 @@ requestRouter.post(
       res.json({
         message: `${req.user.firstName} is ${status} in ${toUser.firstName}`,
         data,
+        error: null,
       });
     } catch (err) {
-      res.status(400).send("ERROR  : " + err.message);
+      res.status(400).json({ message: null, data: null, error: err.message });
     }
   }
 );
@@ -72,9 +79,11 @@ requestRouter.post(
       // Validating connection req status
       const allowedStatus = ["accepted", "rejected"];
       if (!allowedStatus.includes(status)) {
-        return res
-          .status(400)
-          .json({ message: "Invalid status type : " + status });
+        return res.status(400).json({
+          message: null,
+          data: null,
+          error: "Invalid status type : " + status,
+        });
       }
 
       // Validating requestId, toUserId === signedInUserId, status === "interested"
@@ -84,18 +93,24 @@ requestRouter.post(
         status: "interested",
       });
       if (!connectionRequest) {
-        return res
-          .status(404)
-          .json({ message: "Connetion Request Not Found!" });
+        return res.status(404).json({
+          message: null,
+          data: null,
+          error: "Connetion Request Not Found!",
+        });
       }
 
       connectionRequest.status = status;
 
       const data = await connectionRequest.save();
 
-      res.json({ message: `Connection request is ${status}!`, data });
+      res.json({
+        message: `Connection request is ${status}!`,
+        data,
+        error: null,
+      });
     } catch (err) {
-      res.status(400).send("ERROR : " + err.message);
+      res.status(400).json({ message: null, data: null, error: err.message });
     }
   }
 );

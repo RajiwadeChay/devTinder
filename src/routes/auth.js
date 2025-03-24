@@ -14,6 +14,7 @@ authRouter.post("/signup", async (req, res) => {
       lastName,
       emailId,
       password,
+      age,
       gender,
       photoUrl,
       about,
@@ -32,6 +33,7 @@ authRouter.post("/signup", async (req, res) => {
       lastName,
       emailId,
       password: passwordHash,
+      age,
       gender,
       photoUrl,
       about,
@@ -39,9 +41,9 @@ authRouter.post("/signup", async (req, res) => {
     }); // Getting dynamic data from API call
 
     await user.save(); // Saving user obj/document in DB
-    res.send("User added successfully!");
+    res.json({ message: "User added successfully!", data: null, error: null });
   } catch (err) {
-    res.status(400).send("ERROR : " + err.message);
+    res.status(400).json({ message: null, data: null, error: err.message });
   }
 });
 
@@ -74,8 +76,7 @@ authRouter.post("/signin", async (req, res) => {
       throw new Error("Invalid credentials!");
     }
   } catch (err) {
-    // res.status(400).send("ERROR : " + err.message);
-    res.status(400).send({ error: err.message, data: null, message: "" });
+    res.status(400).json({ message: null, data: null, error: err.message });
   }
 });
 
@@ -85,7 +86,7 @@ authRouter.post("/signout", async (req, res) => {
     expires: new Date(Date.now()),
   }); // setting token as null, expriring token now
 
-  res.send("Sign Out Successful!");
+  res.json({ message: "Sign Out Successful!", data: null, error: null });
 });
 
 module.exports = authRouter;
