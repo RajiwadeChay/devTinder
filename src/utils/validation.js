@@ -20,6 +20,8 @@ const validateEditProfileData = (req) => {
     "firstName",
     "lastName",
     "photoUrl",
+    "age",
+    "gender",
     "about",
     "skills",
   ];
@@ -28,9 +30,10 @@ const validateEditProfileData = (req) => {
     throw new Error("Photo url is invalid!");
   } else if (!about) {
     throw new Error("About is invalid!");
-  } else if (skills.length == 0) {
-    throw new Error("Add alteast 1 skill!");
   }
+  // else if (skills?.length == 0) {
+  //   throw new Error("Add alteast 1 skill!");
+  // }
 
   const isEditAllowed = Object.keys(req.body).every((field) =>
     allowedEditFields.includes(field)
