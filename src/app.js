@@ -1,9 +1,16 @@
 const express = require("express");
 const connectDB = require("./config/databse");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Whitelisting Frontend Origin
+    credentials: true,
+  })
+); // Resolving CORS Issue
 app.use(express.json()); // Using express.json moddleware to convert JSON => JS Obj
 app.use(cookieParser()); // For parsing (reading) cookies
 
