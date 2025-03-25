@@ -39,6 +39,7 @@ const userSchema = new mongoose.Schema(
     },
     age: {
       type: Number,
+      required: true,
       min: 18, // Field's min value
     },
     gender: {
@@ -56,7 +57,8 @@ const userSchema = new mongoose.Schema(
     },
     photoUrl: {
       type: String,
-      default: "https://www.freepik.com/free-photos-vectors/default-user", // Field's default value
+      default:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLU5_eUUGBfxfxRd4IquPiEwLbt4E_6RYMw&s", // Field's default value
       validate(value) {
         if (!validator.isURL(value)) {
           throw new Error("Inavlid URL : " + value);

@@ -9,17 +9,28 @@ const validator = require("validator");
 // POST /signup API
 authRouter.post("/signup", async (req, res) => {
   try {
-    const {
-      firstName,
-      lastName,
-      emailId,
-      password,
-      age,
-      gender,
-      photoUrl,
-      about,
-      skills,
-    } = req.body;
+    // const {
+    //   firstName,
+    //   lastName,
+    //   emailId,
+    //   password,
+    //   age,
+    //   gender,
+    //   photoUrl,
+    //   about,
+    //   skills,
+    // } = req.body;
+    const firstName = req?.body?.firstName;
+    const lastName = req?.body?.lastName;
+    const emailId = req?.body?.emailId;
+    const password = req?.body?.password;
+    const age = req?.body?.age;
+    const gender = req?.body?.gender;
+    const photoUrl =
+      req?.body?.photoUrl ||
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLU5_eUUGBfxfxRd4IquPiEwLbt4E_6RYMw&s";
+    const about = req?.body?.about || "This is user default about text";
+    const skills = req?.body?.skills || [];
 
     // Validation of data
     validateSignUpData(req);
@@ -40,8 +51,21 @@ authRouter.post("/signup", async (req, res) => {
       skills,
     }); // Getting dynamic data from API call
 
-    await user.save(); // Saving user obj/document in DB
-    res.json({ message: "User added successfully!", data: null, error: null });
+    const savedUser = await user.save(); // Saving user obj/document in DB
+
+    // Craeting a JWT token
+    const token = await user.getJWT(); // jwt.sigin(infoToHide, secreteKey, {expiryDate});
+
+    // Add token to cookie and send back to user
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 8 * 3600000), // 8 days
+    }); // res.cookie(tokenName, token, expiryDate)
+
+    res.json({
+      message: "User added successfully!",
+      data: savedUser,
+      error: null,
+    });
   } catch (err) {
     res.status(400).json({ message: null, data: null, error: err.message });
   }
