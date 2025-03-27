@@ -12,6 +12,11 @@ requestRouter.post(
   userAuth,
   async (req, res) => {
     try {
+      console.log(
+        "CREDS : ",
+        process.env.AWS_ACCESS_KEY,
+        process.env.AWS_SECRET_KEY
+      );
       const fromUserId = req.user._id;
       const toUserId = req.params.toUserId;
       const status = req.params.status;
@@ -56,13 +61,14 @@ requestRouter.post(
       });
 
       const data = await connectionRequest.save();
+      console.log("DATA SAVE REACHED");
 
       const emailRes = await sendEmail.run(
         `You got a new request from ${req.user.firstName}`,
         `${req.user.firstName} is ${status} in ${toUser.firstName}`
       );
 
-      // console.log("emailRes : ", emailRes);
+      console.log("emailRes : ", emailRes);
 
       res.json({
         message: `${req.user.firstName} is ${status} in ${toUser.firstName}`,
