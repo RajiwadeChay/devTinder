@@ -3,6 +3,7 @@ const connectDB = require("./config/databse");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
+require("./utils/cronjobs");
 
 const app = express();
 

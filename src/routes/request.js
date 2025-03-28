@@ -57,12 +57,14 @@ requestRouter.post(
 
       const data = await connectionRequest.save();
 
-      const emailRes = await sendEmail.run(
-        `You got a new request from ${req.user.firstName}`,
-        `${req.user.firstName} is ${status} in ${toUser.firstName}`
-      );
+      if (status === "interested") {
+        const emailRes = await sendEmail.run(
+          `You got a new request from ${req.user.firstName}`,
+          `${req.user.firstName} is ${status} in ${toUser.firstName}`
+        );
 
-      // console.log("emailRes : ", emailRes);
+        // console.log("emailRes : ", emailRes);
+      }
 
       res.json({
         message: `${req.user.firstName} is ${status} in ${toUser.firstName}`,
