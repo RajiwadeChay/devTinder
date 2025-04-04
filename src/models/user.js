@@ -55,6 +55,13 @@ const userSchema = new mongoose.Schema(
       //   }
       // }, // Custom validator function
     },
+    isPremium: {
+      type: Boolean,
+      default: false,
+    },
+    membershipType: {
+      type: String,
+    },
     photoUrl: {
       type: String,
       default:
