@@ -4,6 +4,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
 require("./utils/cronjobs");
+const http = require("http");
+const initializeSocket = require("./utils/socket");
 
 const app = express();
 
@@ -30,10 +32,17 @@ app.use("/", requestRouter);
 app.use("/", userRouter);
 app.use("/", paymentRouter);
 
+// Craeting chat server
+const server = http.createServer(app); // app from express
+
+// Initialize Socket
+initializeSocket(server);
+
+// Changing app => server (VIMP)
 connectDB()
   .then(() => {
     console.log("Database connection established...!");
-    app.listen(process.env.PORT, () => {
+    server.listen(process.env.PORT, () => {
       console.log("Server is listening to port 7777!");
     });
   })
